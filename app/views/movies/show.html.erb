@@ -1,23 +1,48 @@
-<div class="min-h-screen bg-gray-900 text-white flex flex-col lg:flex-row">
+<div class="container mx-auto mt-20 flex flex-col lg:flex-row justify-center bg-gray-400 p-8 rounded-lg shadow-lg">
+
   <!-- Poster Section -->
   <div class="lg:w-1/3">
-    <div class="h-full bg-gray-800 flex justify-center items-center">
-      <%= image_tag("https://image.tmdb.org/t/p/original#{@movie['poster_path']}", alt: @movie['title'], class: "h-auto max-w-full") %>
-    </div>
+    <% if @moviecreate.present? %>
+      <%= image_tag("https://image.tmdb.org/t/p/w300#{@moviecreate['poster_path']}", alt: @moviecreate['title'], class: "mb-4 mx-auto lg:mx-0") %>
+    <% else %>
+      <%= image_tag("https://image.tmdb.org/t/p/w300#{@movie.poster}", alt: @movie.title, class: "mb-4 mx-auto lg:mx-0") %>
+    <% end %>
   </div>
 
-  <!-- Description Section -->
+  <!-- Description and Reviews Section -->
   <div class="lg:w-2/3">
-    <div class="container mx-auto mt-8 px-4">
-      <h1 class="text-3xl font-bold mb-4"><%= @movie['title'] %></h1>
-      <p class="text-lg"><strong>ID:</strong> <%= @movie['id'] %></p>
-      <p class="text-lg"><strong>Original Title:</strong> <%= @movie['original_title'] %></p>
-      <p class="text-lg"><strong>Genres:</strong> <%= @movie['genre_ids']%></p>
-      <p class="text-lg"><strong>Release Date:</strong> <%= @movie['release_date'] %></p>
-      <p class="text-lg"><strong>Popularity:</strong> <%= @movie['popularity'] %></p>
-      <p class="text-lg"><strong>Total Budget:</strong> <%= @movie['budget'] %></p>
-      <p class="text-lg mt-8"><strong>Description:</strong> <%= @movie['overview'] %></p>
-    </div>
+    <% if @moviecreate.present? %>
+      <h1 class="text-3xl font-bold mb-4"><%= @moviecreate['title'] %></h1>
+      <p class="text-lg"><strong>Original Title:</strong> <%= @moviecreate['original_title'] %></p>
+      <p class="text-lg"><strong>Release Date:</strong> <%= @moviecreate['release_date'] %></p>
+      <p class="text-lg"><strong>Popularity:</strong> <%= @moviecreate['popularity'] %></p>
+      <p class="text-lg mt-8"><strong>Description:   </strong> <%= @moviecreate['overview'] %></p>
+    <% else %>
+      <h1 class="text-3xl font-bold mb-4"><%= @movie.title %></h1>
+      <p class="text-lg"><strong>Original Title:</strong> <%= @movie.original_title %></p>
+      <p class="text-lg"><strong>Popularity:</strong> <%= @movie.popularity %></p>
+      <p class="text-lg mt-8"><strong>Description:   </strong> <%= @movie.overview %></p>
+    <% end %>
+
+    <!-- Reviews Section -->
+    <% if @movie.present? && @movie.reviews.present? %>
+      <div class="lg:ml-8">
+        <h2 class="text-2xl font-bold mb-4">Reviews</h2>
+        <% @movie.reviews.each do |review| %>
+          <div class="border border-gray-300 p-4 mb-4">
+            <p class="text-lg text-black font-semibold">Review:</p>
+            <p class="text-lg text-black"><%= review.review %></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <!-- Review Form Section -->
+    <%= simple_form_for Review.new, url: movie_reviews_path(movie_id: @movie&.movie_id || @moviecreate['id'] ), method: :post do |f| %>
+      <div class="lg:ml-8 mt-8">
+        <%= f.input :review, label: 'Review', placeholder: 'Add a comment', label_html: {class: 'text-lg font-semibold'}, input_html: {class: "bg-white border border-gray-300 text-gray-800 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-500 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"} %>
+        <%= f.submit 'Post', class: "bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md mt-2" %>
+      </div>
+    <% end %>
   </div>
 </div>
-

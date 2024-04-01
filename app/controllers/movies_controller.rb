@@ -7,18 +7,21 @@ class MoviesController < ApplicationController
     end
   end
 
-  def create
-      @title = Movie.create(movie_params)
-      redirect_to root_path
-  end
+  # def create
+  #     @title = Movie.create(movie_params)
+  #     redirect_to root_path
+  # end
 
   def show
-    @movie = Tmdb::DetailService.execute(id: params[:id])
+    @movie=Movie.find_by(movie_id: params[:id])
+    if @movie.nil?
+      @moviecreate = Tmdb::DetailService.execute(id: params[:id])
+    end
   end
 
-  private
-  def movie_params
-      params.require(:movie).permit(:title)
-  end
+  # private
+  # def movie_params
+  #     params.require(:movie).permit(:title)
+  # end
    
 end

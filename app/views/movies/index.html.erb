@@ -1,17 +1,16 @@
-<div class="bg-gray-900 min-h-screen text-white px-8 flex flex-col"> 
+<div class="bg-gray-700 min-h-screen text-white px-8 flex flex-col"> 
   <div class="flex-1"> 
     <div class="mt-20">
-      <h2 class="text-3xl font-bold mb-4">Find Movie</h2>
       <%= form_tag(movies_path, method: :get) do %>
-        <div class="flex items-center mb-10">
-          <%= text_field_tag :movie_title, params[:movie_title], placeholder: 'Enter movie title', class: "rounded-l-lg p-4 border-t border-b border-l border-black text-gray-800 border-gray-200 bg-white focus:outline-none focus:border-blue-500 flex-1 mr-2", style: "height: 40px;" %>
+        <div class="flex items-center">
+          <%= text_field_tag :movie_title, params[:movie_title], placeholder: 'Enter movie name', class: "rounded-l-lg p-4 border-t border-b border-l border-black text-gray-800 border-gray-200 bg-white focus:outline-none focus:border-blue-500 flex-1 mr-2", style: "height: 40px;" %>
           <%= submit_tag 'Search', class: "px-6 py-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600" %>
         </div>
       <% end %>
     </div>
   </div>
   
-  <div class="flex-1 mt-10"> 
+  <div class="flex-1 mt-5"> 
     <% if @movies.present? && @movies.any? %>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <% @movies.each do |movie| %>

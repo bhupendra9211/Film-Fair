@@ -18,5 +18,5 @@ module Tmdb
         end
   
     end
-    end
+end
   
