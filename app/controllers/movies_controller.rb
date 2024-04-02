@@ -1,10 +1,11 @@
 class MoviesController < ApplicationController
   def index
     if params[:movie_title].present?
-      @movies = Tmdb::SearchService.execute(title: params[:movie_title])
+      movies = Tmdb::SearchService.execute(title: params[:movie_title])
     else
-      @movies = Tmdb::AllService.execute()
+      movies = Tmdb::AllService.execute()
     end
+    @movies = Kaminari.paginate_array(movies).page(params[:page]).per(4)
   end
 
   # def create

@@ -14,6 +14,7 @@
     <% if @moviecreate.present? %>
       <h1 class="text-3xl font-bold mb-4"><%= @moviecreate['title'] %></h1>
       <p class="text-lg"><strong>Original Title:</strong> <%= @moviecreate['original_title'] %></p>
+      <p class="text-lg"><strong>Genre:</strong> <%= @moviecreate['genre_ids'] %></p>
       <p class="text-lg"><strong>Release Date:</strong> <%= @moviecreate['release_date'] %></p>
       <p class="text-lg"><strong>Popularity:</strong> <%= @moviecreate['popularity'] %></p>
       <p class="text-lg mt-8"><strong>Description:   </strong> <%= @moviecreate['overview'] %></p>

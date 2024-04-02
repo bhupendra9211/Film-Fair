@@ -13,7 +13,7 @@ class ReviewsController < ApplicationController
         end
         redirect_to movie_path(id: @moviecreate.movie_id)
     end
-  
+   
   
   
   
@@ -27,6 +27,6 @@ class ReviewsController < ApplicationController
   
     def review_params
       params.require(:review).permit(:review)
-  
+   
     end
 end
