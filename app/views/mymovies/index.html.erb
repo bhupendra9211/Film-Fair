@@ -1,0 +1,28 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-20">
+  <% @mymovies.each do |movie| %>
+    <% if movie.reviews.present? && movie.reviews.where(user_id: current_user.id).exists? %>
+      <div class="container mx-auto mt-4 bg-gray-400 p-4 rounded-lg shadow-md">
+        <!-- Description Section -->
+        <div class="lg:w-2/3 mt-4 lg:mt-0">
+          <h2 class="text-xl font-semibold"><%= movie.title %></h2>
+          <p class="text-lg"><strong>Original Title:</strong> <%= movie.original_title %></p>
+          <p class="text-lg"><strong>Popularity:</strong> <%= movie.popularity %></p>
+          <p class="text-lg mt-4"><strong>Description: </strong> <%= movie.overview %></p>
+          <% movie.reviews.each do |review| %>
+            <% if review.user_id == current_user.id %>
+              <div class="border border-gray-300 p-2 mb-2">
+                <p class="text-sm text-gray-800 font-semibold">Your Review</p>
+                <p class="text-sm text-gray-800"><%= review.review %></p>
+              </div>
+            <% else %>
+              <div class="border border-gray-300 p-2 mb-2">
+                <p class="text-sm text-gray-800 font-semibold">Review by: <%= review.user.email %></p>
+                <p class="text-sm text-gray-800"><%= review.review %></p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

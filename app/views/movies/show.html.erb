@@ -35,7 +35,7 @@
         <h2 class="text-2xl font-bold mb-4">Reviews</h2>
         <% @movie.reviews.each do |review| %>
           <div class="border border-gray-300 p-4 mb-4">
-            <p class="text-lg text-black font-semibold">Review by :<%= current_user.email %> </p>
+            <p class="text-lg text-black font-semibold">Review by :<%= review.user.email %> </p>
             <p class="text-lg text-black"><%= review.review %></p>
           </div>
         <% end %>

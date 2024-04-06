@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create]
   end
 
+  resources :mymovies
+
   namespace :v1 do
     resources :movies do
       resources :reviews

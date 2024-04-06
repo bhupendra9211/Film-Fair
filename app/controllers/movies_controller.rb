@@ -5,7 +5,7 @@ class MoviesController < ApplicationController
     else
       movies = Tmdb::AllService.execute()
     end
-    @movies = Kaminari.paginate_array(movies).page(params[:page]).per(4)
+    @movies = Kaminari.paginate_array(movies).page(params[:page]).per(8)
   end
 
   # def create
